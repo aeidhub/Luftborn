@@ -2,7 +2,7 @@
 {
     public class ResponseModel
     {
-        public bool Success => Errors == null || Errors.Count == 0;
+        public bool Success { get; set; } = true;
         public List<string> Errors { get; set; }
 
         public void AddError(string error)

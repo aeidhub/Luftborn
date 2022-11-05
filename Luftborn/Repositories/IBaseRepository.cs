@@ -5,10 +5,11 @@ namespace Luftborn.Repositories
 {
     public interface IBaseRepository<T> where T : class
     {
-        Task<ResponseModel> GetAllAsync();
-        Task<ResponseModel> FindAllAsync(Expression<Func<T, bool>> expression, string[]? includes);
-        //Task<ResponseModel> AddAsync(T entity);
-        //Task<ResponseModel> UpdateAsync(T entity);
-        //ResponseModel Delete(T entity);
+        Task<ResponseModel<List<T>>> GetAllAsync();
+        Task<ResponseModel<List<T>>> FindAllAsync(Expression<Func<T, bool>> expression, string[]? includes);
+        Task<ResponseModel<object>> AddAsync(T entity);
+        Task<ResponseModel<object>> UpdateAsync(T entity);
+        Task<ResponseModel<object>> GetByIdAsync(int id);
+        Task<ResponseModel<object>> DeleteAsync(T entity);
     }
 }
