@@ -50,7 +50,7 @@ namespace Luftborn.Services
                 return new AuthModel { Message = errors };
             }
 
-            await _userManager.AddToRoleAsync(user, "User");
+            await _userManager.AddToRoleAsync(user, Roles.User);
 
             var jwtSecurityToken = await CreateJwtToken(user);
 
@@ -59,7 +59,7 @@ namespace Luftborn.Services
                 Email = user.Email,
                 ExpiresOn = jwtSecurityToken.ValidTo,
                 IsAuthenticated = true,
-                Roles = new List<string> { "User" },
+                Roles = new List<string> { Roles.User },
                 Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken),
                 Username = user.UserName
             };
@@ -88,21 +88,6 @@ namespace Luftborn.Services
             authModel.Roles = rolesList.ToList();
 
             return authModel;
-        }
-
-        public async Task<string> AddRoleAsync(AddRoleModel model)
-        {
-            var user = await _userManager.FindByIdAsync(model.UserId);
-
-            if (user is null || !await _roleManager.RoleExistsAsync(model.Role))
-                return "Invalid user ID or Role";
-
-            if (await _userManager.IsInRoleAsync(user, model.Role))
-                return "User already assigned to this role";
-
-            var result = await _userManager.AddToRoleAsync(user, model.Role);
-
-            return result.Succeeded ? string.Empty : "Sonething went wrong";
         }
 
         private async Task<JwtSecurityToken> CreateJwtToken(AppUser user)
