@@ -56,6 +56,8 @@ builder.Services.AddAuthentication(options =>
 //Inject Services
 builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
 builder.Services.AddScoped(typeof(IProductService), typeof(ProductService));
+//Add Automapper
+builder.Services.AddAutoMapper(typeof(Program));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
