@@ -63,6 +63,7 @@ namespace Luftborn.Repositories
             var response = new ResponseModel<object>();
             try
             {
+                _context.Entry(entity).State = EntityState.Modified;
                 var result = _context.Set<T>().Update(entity);
                 if (result.Entity != null)
                 {

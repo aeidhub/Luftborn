@@ -1,0 +1,32 @@
+/** @format */
+
+.product-cont {
+  display: flex;
+  justify-content: space-around;
+  margin: auto;
+  height: 40px;
+  align-items: center;
+  border-bottom: 1px solid black;
+  span {
+    max-width: 25%;
+  }
+  &:last-child {
+    border: none;
+  }
+  &__actionBtns {
+    button {
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 3px;
+      cursor: pointer;
+      &:first-child {
+        background-color: #81c6e8;
+        margin-right: 10px;
+      }
+      &:last-child {
+        background-color: #cf0a0a;
+      }
+    }
+  }
+}

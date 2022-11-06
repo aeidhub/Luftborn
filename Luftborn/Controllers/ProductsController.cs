@@ -1,6 +1,7 @@
 ﻿using Luftborn.Dtos;
 using Luftborn.Models;
 using Luftborn.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -9,6 +10,7 @@ namespace Luftborn.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    //[Authorize]
     public class ProductsController : ControllerBase
     {
         private IProductService _productService;
