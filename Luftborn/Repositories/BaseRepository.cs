@@ -13,35 +13,6 @@ namespace Luftborn.Repositories
             _context = context;
         }
 
-        public async Task<ResponseModel<List<T>>> FindAllAsync(Expression<Func<T, bool>> expression, string[]? includes)
-        {
-            
-            var response = new ResponseModel<List<T>>();
-            try
-            {
-                IQueryable<T> query = _context.Set<T>();
-                if (query != null)
-                {
-                    if (includes != null)
-                        foreach (var include in includes)
-                            query = query.Include(include);
-                    response.Response = await query.Where(expression).ToListAsync();
-                }
-                else
-                {
-                    response.Success = false;
-                    response.AddError("There is no data yet");
-                }
-
-            }
-            catch (Exception ex)
-            {
-                response.Success = false;
-                response.AddError(ex.Message);
-            }
-            return response;
-        }
-
         public async Task<ResponseModel<List<T>>> GetAllAsync()
         {
             var response = new ResponseModel<List<T>>();

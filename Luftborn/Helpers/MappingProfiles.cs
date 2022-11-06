@@ -9,8 +9,9 @@ namespace Luftborn.Helpers
         public MappingProfiles()
         {
             CreateMap<Product, CreateProductDto>().ReverseMap();
-            CreateMap<Product, UpdateProductDto>().ReverseMap();
+            CreateMap<Product, ProductDto>().ReverseMap();
             CreateMap<Product, ResponseModel<Product>>().ReverseMap();
+            CreateMap<Product, ResponseModel<ProductDto>>().ReverseMap();
         }
     }
 }

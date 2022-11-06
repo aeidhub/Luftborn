@@ -12,13 +12,11 @@ namespace Luftborn.Services
     public class AuthService : IAuthService
     {
         private readonly UserManager<AppUser> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly JWT _jwt;
 
-        public AuthService(UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager, IOptions<JWT> jwt)
+        public AuthService(UserManager<AppUser> userManager, IOptions<JWT> jwt)
         {
             _userManager = userManager;
-            _roleManager = roleManager;
             _jwt = jwt.Value;
         }
 
