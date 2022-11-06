@@ -27,7 +27,6 @@ builder.Services.AddIdentity<AppUser, IdentityRole>(option =>
 }
     ).AddEntityFrameworkStores<AppDbContext>();
 
-builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
@@ -54,6 +53,7 @@ builder.Services.AddAuthentication(options =>
                     };
                 });
 //Inject Services
+builder.Services.AddScoped(typeof(IAuthService), typeof(AuthService));
 builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
 builder.Services.AddScoped(typeof(IProductService), typeof(ProductService));
 //Add Automapper

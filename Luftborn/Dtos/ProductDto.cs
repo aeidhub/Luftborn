@@ -1,6 +1,6 @@
 ﻿namespace Luftborn.Dtos
 {
-    public class UpdateProductDto
+    public class ProductDto
     {
         public int Id { get; set; }
 

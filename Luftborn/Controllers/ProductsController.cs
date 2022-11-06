@@ -1,6 +1,7 @@
 ﻿using Luftborn.Dtos;
 using Luftborn.Models;
 using Luftborn.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -9,6 +10,7 @@ namespace Luftborn.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    //[Authorize]
     public class ProductsController : ControllerBase
     {
         private IProductService _productService;
@@ -20,8 +22,17 @@ namespace Luftborn.Controllers
         [HttpGet("GetAllProducts")]
         public async Task<IActionResult> GetAllProducts()
         {
-            var response = await _productService.GetAllProductsAsync();
-            return Ok(response);
+            var response = new ResponseModel();
+            try
+            {
+                response = await _productService.GetAllProductsAsync();
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                response.AddError(ex.Message);
+                return BadRequest(response);
+            }
         }
 
         [HttpPost("AddProduct")]
@@ -34,7 +45,7 @@ namespace Luftborn.Controllers
                     return BadRequest();
 
                 response = await _productService.CreateProductAsync(product);
-                return Created(nameof(GetAllProducts), product);
+                return Created(nameof(GetAllProducts), response);
             }
             catch (Exception ex)
             {
@@ -44,7 +55,7 @@ namespace Luftborn.Controllers
         }
 
         [HttpPut("UpdateProduct")]
-        public async Task<IActionResult> UpdateProduct(UpdateProductDto product)
+        public async Task<IActionResult> UpdateProduct(ProductDto product)
         {
             var response = new ResponseModel();
             try
@@ -54,7 +65,7 @@ namespace Luftborn.Controllers
 
                 response = await _productService.UpdateProductAsync(product);
                 if(response.Success)
-                    return Created(nameof(GetAllProducts), product);
+                    return Created(nameof(GetAllProducts), response);
                 else
                     return BadRequest(response);
             }

@@ -1,0 +1,18 @@
+/** @format */
+
+.allProducts-cont {
+  border: 1px solid black;
+  width: 60%;
+  margin: auto;
+  margin-top: 20px;
+  border-radius: 5px;
+  &__header {
+    padding: 0px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    button {
+      cursor: pointer;
+    }
+  }
+}

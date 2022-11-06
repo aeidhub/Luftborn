@@ -17,8 +17,22 @@ namespace Luftborn.Services
 
         public async Task<ResponseModel> GetAllProductsAsync()
         {
-            var respnse = await _repo.GetAllAsync();
-            return respnse;
+            var response = new ResponseModel<List<ProductDto>>();
+            
+            try
+            {
+                var result = await _repo.GetAllAsync();
+                if(result.Success)
+                {
+                    response.Response = _mapper.Map<List<ProductDto>>(result.Response);
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.AddError(ex.Message);
+            }
+            return response;
             
         }
 
@@ -38,7 +52,7 @@ namespace Luftborn.Services
             return response;
         }
 
-        public async Task<ResponseModel> UpdateProductAsync(UpdateProductDto product)
+        public async Task<ResponseModel> UpdateProductAsync(ProductDto product)
         {
             var response = await _repo.GetByIdAsync(product.Id);
             try
